@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: mypackage-tests.js</title>
+    <title>JSDoc: Source: usage_example.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: mypackage-tests.js</h1>
+    <h1 class="page-title">Source: usage_example.js</h1>
 
     
 
@@ -27,60 +27,54 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * @fileOverview The unit tests for "yourorg:mypackage".
+ * @fileOverview A demonstrator template.  This code is expected to be used as a getting
+ * started example and then thrown away. It demonstrates the basic action of getting
+ * date from apackage.
  * @author Yourself &lt;yourself.yourorg@gmail.com>
  * @version v0.0.1
  * @license MIT
  */
 
-/**
- * Tinytest unit tests
- * @namespace Tinytest
- */
+Session.setDefault('idPet', 6133627026);
+Session.setDefault('pet', { name: 'unknown'});
 
-/**
- * Simply verifies that true equals true
- * @name sanityCheckEQ
- * @memberof Tinytest
- * @function
- * @param  test {Tinytest} Check Equality
- * @return {None}
- */
-Tinytest.add('Check Equality', function sanityCheckEQ(test) {
-  test.equal(true, true);
-  Logger.info('ººº Yoo Hoo ººº');
+Template.petStoreTest.helpers({
+
+  /**
+   * petStoreTest template's helper for getting a pet ID
+   * @return {Integer} A valid pet ID
+   */
+  idPet: function getCounter() {
+    return Session.get('idPet');
+  },
+  /**
+   * petStoreTest template's helper for getting a pet name as returned from the API
+   * @return {String} The pet's name according to the remote API.
+   */
+  namePet: function getPetName() {
+    return Session.get('pet').name;
+  },
+
 });
 
+Template.petStoreTest.events({
+  /**
+   * Handle clicks of the button to step through a short list of pets
+   * @return {null} None
+   */
+  'click button': function clickMe() {
+    Session.set('idPet', Session.get('idPet') + 1);
 
-/**
- * Simply verifies that false doesn't equal true
- * @name sanityCheckNEQ
- * @memberof Tinytest
- * @function
- * @param  test {Tinytest} Check Inequality
- * @return {None}
- */
-Tinytest.add('Check Inequality', function sanityCheckNEQ(test) {
-  test.notEqual(true, false);
+    Meteor.call('mypackage_getPetById', Session.get('idPet'), function setPet(err, thePet) {
+      if (err) {
+        console.log('Server error :: ' + err);
+        Session.set('pet', { name: 'error'});
+      } else {
+        Session.set('pet', thePet);
+      }
+    });
+  },
 });
-
-/**
- * Can we retrieve a pet by its ID number?
- * @name obtainPetById
- * @memberof Tinytest
- * @function
- * @param  test {Tinytest} Pet #petNum is : expected
- * @return {None}
- */
-const petNum = 6133627028;
-const expected = 'Your fluffy little wolverine.';
-Tinytest.add('Pet #' + petNum + ' is : ' + expected, function obtainPetById(test) {
-  var aPet = PetStore.sync.getPetById(
-    { petId: petNum}, {responseContentType: 'application/json'}
-  );
-  test.equal(aPet.obj.name, expected);
-});
-
 </code></pre>
         </article>
     </section>
