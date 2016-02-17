@@ -15,6 +15,7 @@ Package.onUse(function onUse(api) {
   api.use(['ecmascript', 'templating', 'session']);
   api.addFiles(['logger.js', 'mypackage.js'], ['server']);
   api.addFiles(['usage_example.html', 'usage_example.js' ], ['client']);
+  api.addFiles(['versionMonitor.html', 'versionMonitor.js' ], ['client']);
   api.export(['Logger', 'PetStore']);
 });
 

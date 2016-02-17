@@ -25,7 +25,7 @@ declare DOCS_ZIP="${TEMP_DIR}/pkg_docs.zip";
 function commitDocsToGitHubPages() {
 
   set -e;
-  
+
   echo -e "Publishing to GitHub Pages.";
   mkdir -p ${TEMP_DIR};
 
@@ -40,8 +40,8 @@ function commitDocsToGitHubPages() {
 
   eval "$(ssh-agent -s)";
 
-  git config --global user.email "yourself.yourorg@gmail.com";
-  git config --global user.name "Yourself";
+  git config --global user.email "dude.awap@gmail.com";
+  git config --global user.name "Dude Awap";
   git config --global push.default simple
 
   echo " | master | ";
@@ -79,8 +79,41 @@ function commitDocsToGitHubPages() {
 
 }
 
+# function PatchVersionMonitorHelper() {
+
+#   PKG_UUID=$(cat package.js | grep name | cut -f 2 -d "'");
+#   OWNER_PKG=$(echo ${PKG_UUID} | cut -f 1 -d ":");
+#   echo "Package owner : ${OWNER_PKG}";
+#   NAME_PKG=$(echo ${PKG_UUID} | cut -f 2 -d ":");
+#   echo "Package name : ${NAME_PKG}";
+
+#   curl -s https://api.github.com/repos/${OWNER_PKG}/${NAME_PKG}/releases/latest > scrap.json;
+#   sleep 2;
+
+#   LATEST_RELEASE=$(cat scrap.json | jq -r '.tag_name');
+#   RELEASE_URL=$(cat scrap.json | jq -r '.html_url');
+#   echo "LATEST RELEASE : ${LATEST_RELEASE} Location : ${RELEASE_URL}";
+
+#   export TAG_SHA=$(git show-ref --tags | grep ${LATEST_RELEASE} | cut -f 1 -d " ");
+#   echo "TAG_SHA : " ${TAG_SHA};
+
+#   export COMMIT_URL=$(curl -s https://api.github.com/repos/${OWNER_PKG}/${NAME_PKG}/commits/${TAG_SHA} | jq -r '.html_url');
+#   echo "COMMIT_URL : " ${COMMIT_URL} ;
+
+#   sed -i "s|const injectedTagSha = '';|const injectedTagSha = '${TAG_SHA:0:7}';|g" versionMonitor.js
+#   sed -i "s|const injectedBuildNum = '';|const injectedBuildNum = '${CIRCLE_SHA1}';|g" versionMonitor.js
+#   sed -i "s|const injectedCommitUrl = '';|const injectedCommitUrl = '${COMMIT_URL}';|g" versionMonitor.js
+#   sed -i "s|const injectedReleaseTag = '';|const injectedReleaseTag = '${LATEST_RELEASE}';|g" versionMonitor.js
+#   sed -i "s|const injectedReleaseUrl = '';|const injectedReleaseUrl = '${RELEASE_URL}';|g" versionMonitor.js
+
+# }
+
+
 checkCodeStyle;
 
 generateDocs;
 
 commitDocsToGitHubPages;
+
+source ./tools/versionMonitor.sh;
+PatchVersionMonitorHelper;
