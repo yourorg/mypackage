@@ -1,6 +1,6 @@
 Package.describe({
   name: 'yourorg:mypackage',
-  version: '0.0.3',
+  version: '0.0.4',
   // Brief, one-line summary of the package.
   summary: '',
   // URL to the Git repository containing the source code for this package.
@@ -12,18 +12,20 @@ Package.describe({
 
 Package.onUse(function onUse(api) {
   api.versionsFrom('1.2.1');
-  api.use('ecmascript');
+  api.use(['ecmascript', 'templating', 'session']);
   api.addFiles(['logger.js', 'mypackage.js'], ['server']);
-  api.export('Logger');
+  api.addFiles(['usage_example.html', 'usage_example.js' ], ['client']);
+  api.export(['Logger', 'PetStore']);
 });
 
 Package.onTest(function onTest(api) {
   api.use('ecmascript');
   api.use('tinytest');
-  api.addFiles(['logger.js', 'mypackage-tests.js'], ['server']);
-  api.export('Logger');
+  api.addFiles(['logger.js', 'mypackage.js', 'mypackage-tests.js'], ['server']);
+  api.export(['Logger', 'PetStore']);
 });
 
 Npm.depends({
   'bunyan': '1.5.1',
+  'swagger-client': '2.1.5',
 });

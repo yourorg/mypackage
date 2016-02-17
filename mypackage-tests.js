@@ -1,6 +1,6 @@
 /**
- * @fileOverview The unit tests for "yourpackage".
- * @author Your Self <yourself.yourorg@gmail.com>
+ * @fileOverview The unit tests for "yourorg:mypackage".
+ * @author Yourself <yourself.yourorg@gmail.com>
  * @version v0.0.1
  * @license MIT
  */
@@ -35,3 +35,21 @@ Tinytest.add('Check Equality', function sanityCheckEQ(test) {
 Tinytest.add('Check Inequality', function sanityCheckNEQ(test) {
   test.notEqual(true, false);
 });
+
+/**
+ * Can we retrieve a pet by its ID number?
+ * @name obtainPetById
+ * @memberof Tinytest
+ * @function
+ * @param  test {Tinytest} Pet #petNum is : expected
+ * @return {None}
+ */
+const petNum = 6133627028;
+const expected = 'Your fluffy little wolverine.';
+Tinytest.add('Pet #' + petNum + ' is : ' + expected, function obtainPetById(test) {
+  var aPet = PetStore.sync.getPetById(
+    { petId: petNum}, {responseContentType: 'application/json'}
+  );
+  test.equal(aPet.obj.name, expected);
+});
+
