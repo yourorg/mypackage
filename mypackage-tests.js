@@ -20,6 +20,7 @@
  */
 Tinytest.add('Check Equality', function sanityCheckEQ(test) {
   test.equal(true, true);
+  Logger.info('ººº Yoo Hoo ººº');
 });
 
 
