@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: PetStore</title>
+    <title>JSDoc: Source: versionMonitor.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,126 +17,40 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: PetStore</h1>
+    <h1 class="page-title">Source: versionMonitor.js</h1>
 
     
 
 
 
-
-<section>
-
-<header>
     
-        
-            
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-            <div class="description">This is the exported PetStore proxy that can be used by any server-side JavaScript code.</div>
-        
-
-        
-            
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @fileOverview ** GENERATED FILE -- DO NOT EDIT **
+ * Display a build version number if available. Show a marker if not.
+ * @author Dude Awap &lt;dude.awap@gmail.com>
+ * @version v0.0.1
+ * @license MIT
+ */
 
 
+Template.versionMonitor.helpers({
 
+  build_num: function () { return 'unknown'; },
+  build_url: function () { return 'unknown'; },
+  build_sha: function () { return 'unknown'; },
+  build_repourl: function () { return 'unknown'; },
 
+  commit_url: function () { return 'https://github.com/yourorg/mypackage/commit/c6e8ec65f3dd39fac55e0cef48b25d4f3f587061'; },
+  tag_sha: function () { return 'c6e8ec6'; },
+  release_tag: function () { return 'v0.0-alpha'; },
+  release_url: function () { return 'https://github.com/yourorg/mypackage/releases/tag/v0.0-alpha'; },
 
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="mypackage.js.html">mypackage.js</a>, <a href="mypackage.js.html#line62">line 62</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-    
-    </div>
-
-    
-
-    
-
-    
-
-     
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+});
+</code></pre>
+        </article>
+    </section>
 
 
 
